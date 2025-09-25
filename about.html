@@ -4,10 +4,536 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="About M-Abdullah, IT student and web developer">
-    <title>About | M-Abdullah</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Portfolio of M-Abdullah, IT student and web developer">
+    <title>M-Abdullah | Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+            --white: #fff;
+            --gray: #95a5a6;
+            --success-color: #2ecc71;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #1a252f;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--primary-color);
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 15px auto;
+        }
+
+        .subsection-title {
+            font-size: 1.5rem;
+            margin: 25px 0 15px;
+            color: var(--secondary-color);
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            background-color: var(--white);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+
+        .nav-list {
+            display: flex;
+        }
+
+        .nav-item {
+            margin-left: 30px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--dark-color);
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+
+        /* Enhanced Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.8) 0%, rgba(44, 62, 80, 0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            color: var(--white);
+            text-align: center;
+            padding-top: 0;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator i {
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .skills-list {
+            text-align: left;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        .skills-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .skills-list li::before {
+            content: '•';
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .cta-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .footer-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .footer-name {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .footer-tagline {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-links-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-links-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .footer-nav li {
+            margin-bottom: 10px;
+        }
+
+        .footer-nav a {
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .footer-nav a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .footer-social {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-social-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-social-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--dark-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-title {
+                font-size: 3.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            .nav.active {
+                left: 0;
+            }
+            
+            .nav-list {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-item {
+                margin: 15px 0;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -19,8 +545,8 @@
             </div>
             <nav class="nav">
                 <ul class="nav-list">
-                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="about.html" class="nav-link active">About</a></li>
+                    <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                     <li class="nav-item"><a href="projects.html" class="nav-link">Projects</a></li>
                     <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
                 </ul>
@@ -32,61 +558,43 @@
     </header>
 
     <main class="main">
-        <section class="section about-section">
-            <div class="container">
-                <h2 class="section-title">About Me</h2>
-                <div class="about-content">
-                    <div class="about-image">
-                        <img src="logopic.jpg" alt="M-Abdullah" class="profile-img">
-                    </div>
-                    <div class="about-text">
-                        <h3 class="about-subtitle">Information Technology Student & Web Developer</h3>
-                        <p>
-                            I'm Abdullah, currently pursuing my degree in Information Technology at Quaid-e-Awam University of Engineering, Science and Technology, Nawabshah. My journey in technology began with a curiosity about how websites and applications work, which has now grown into a passion for creating digital solutions.
-                        </p>
-                        <p>
-                            Beyond academics, I spend my time working on personal projects, contributing to open-source initiatives, and continuously expanding my knowledge in the ever-evolving field of technology.
-                        </p>
-                        
-                        <div class="education-section">
-                            <h4 class="subsection-title">Education</h4>
-                            <div class="education-item">
-                                <h5>Bachelor of Information Technology</h5>
-                                <p class="institution">Quaid-e-Awam University of Engineering, Science and Technology, Nawabshah</p>
-                                <p class="duration">Expected Graduation: 2024-2028</p>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Enhanced Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2 class="hero-title">M-Abdullah</h2>
+                <p class="hero-subtitle">Information Technology Student & Web Developer</p>
+                <div class="hero-buttons">
+                    <a href="#about" class="btn btn-outline">Learn More About Me</a>
+                    <a href="projects.html" class="btn">View My Projects</a>
                 </div>
-                
-                <div class="skills-section">
-                    <h4 class="subsection-title">Technical Skills</h4>
-                    <div class="skills-container">
-                        <div class="skill-category">
-                            <h5>Web Development</h5>
-                            <ul class="skills-list">
-                                <li>HTML5</li>
-                                <li>CSS3</li>
-                                <li>JavaScript</li>
-                                <li>Responsive Design</li>
-                            </ul>
-                        </div>
-                        <div class="skill-category">
-                            <h5>Programming Languages</h5>
-                            <ul class="skills-list">
-                                <li>Python</li>
-                                <li>C++</li>
-                                <li>Java</li>
-                            </ul>
-                        </div>
-                        <div class="skill-category">
-                            <h5>Networking</h5>
-                            <ul class="skills-list">
-                                <li>LAN Configuration</li>
-                                <li>Network Fundamentals</li>
-                                <li>TCP/IP</li>
-                            </ul>
-                        </div>
+            </div>
+            <div class="scroll-indicator">
+                <a href="#about"><i class="fas fa-chevron-down"></i></a>
+            </div>
+        </section>
+
+        <section id="about" class="section about-preview">
+            <div class="container">
+                <h3 class="section-title">Welcome to My Portfolio</h3>
+                <div class="about-content">
+                    <p>
+                        I am a passionate and goal-oriented <strong>Information Technology student</strong> at <strong>Quaid-e-Awam University of Engineering, Science and Technology, Nawabshah</strong>. With a strong foundation in both front-end and back-end development, I specialize in <strong>web development</strong> and have practical experience in programming and networking concepts.
+                    </p>
+                    
+                    <h4 class="subsection-title">My technical skill set includes:</h4>
+                    <ul class="skills-list">
+                        <li><strong>Web Technologies:</strong> HTML, CSS, JavaScript</li>
+                        <li><strong>Programming Languages:</strong> Python, C++, Java</li>
+                        <li><strong>Networking:</strong> LAN configuration and fundamentals</li>
+                    </ul>
+                    
+                    <p>
+                        This portfolio reflects my academic background, technical competencies, and hands-on project work. I am continuously exploring new technologies and tools to enhance my capabilities and contribute to meaningful, real-world solutions.
+                    </p>
+                    
+                    <div class="cta-buttons">
+                        <a href="about.html" class="btn btn-secondary">More About Me</a>
+                        <a href="projects.html" class="btn">View My Projects</a>
                     </div>
                 </div>
             </div>
@@ -94,10 +602,98 @@
     </main>
 
     <footer class="footer">
-        <!-- Same footer as index.html -->
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="logopic.jpg" alt="M-Abdullah Logo" class="footer-logo">
+                    <h3 class="footer-name">M-Abdullah</h3>
+                    <p class="footer-tagline">IT Student & Web Developer</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-links-title">Quick Links</h4>
+                    <ul class="footer-nav">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-social">
+                    <h4 class="footer-social-title">Connect With Me</h4>
+                    <div class="social-icons">
+                        <a href="https://github.com/abdullaharain-codes" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/muhammad-abdullah-a13289339" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://www.instagram.com/m_abdullah980" target="_blank" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/yourusername" target="_blank" aria-label="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@abdullah_arain71?_t=8eTnUcv0nMP&_r=1" target="_blank" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="year"></span> M-Abdullah. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile menu toggle
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const nav = document.querySelector('.nav');
+
+            if (mobileMenuToggle && nav) {
+                mobileMenuToggle.addEventListener('click', function () {
+                    nav.classList.toggle('active');
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fa-times');
+                        icon.classList.toggle('fa-bars');
+                    }
+                });
+            }
+
+            // Close mobile menu when clicking a nav link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function () {
+                    if (nav && nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                        const icon = mobileMenuToggle.querySelector('i');
+                        if (icon) {
+                            icon.classList.add('fa-bars');
+                            icon.classList.remove('fa-times');
+                        }
+                    }
+                });
+            });
+
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Update copyright year
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+    </script>
 </body>
 
 </html>
